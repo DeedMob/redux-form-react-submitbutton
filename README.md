@@ -1,10 +1,13 @@
-# redux-form-submitbutton
+# redux-form-react-submitbutton
 
-A submit button for redux form that dynamically changes based on the current redux-form state.
+A submit button for `redux-form` that dynamically changes based on the current redux-form state.
+Could be used without `redux-form`, but is intended for use with `redux-form`'s props.
 
 ## Installing
 
-TODO
+`yarn add redux-form-react-submitbutton`
+
+`npm install redux-form-react-submitbutton`
 
 ## Example usage
 

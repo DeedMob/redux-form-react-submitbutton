@@ -1,5 +1,5 @@
 {
-  "name": "redux-form-submitbutton",
+  "name": "redux-form-react-submitbutton",
   "version": "1.0.0",
   "description": "A submit button for redux form that dynamically changes based on the current form state",
   "main": "dist/SubmitButton.js",
@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DeedMob/redux-form-submitbutton.git"
+    "url": "git+https://github.com/DeedMob/redux-form-react-submitbutton.git"
   },
   "keywords": [
     "redux-form",
@@ -32,12 +32,12 @@
     "submit",
     "button"
   ],
-  "author": "David Furlong",
+  "author": "David Furlong <dvfurlong@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/DeedMob/redux-form-submitbutton/issues"
+    "url": "https://github.com/DeedMob/redux-form-react-submitbutton/issues"
   },
-  "homepage": "https://github.com/DeedMob/redux-form-submitbutton#readme",
+  "homepage": "https://github.com/DeedMob/redux-form-react-submitbutton#readme",
   "dependencies": {
     "react": "^15.4.2"
   },
