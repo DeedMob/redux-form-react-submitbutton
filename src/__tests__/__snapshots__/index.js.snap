@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mouseout 1`] = `
+Object {
+  "children": Array [
+    <span>
+      <i
+            className="fa fa-paper-plane-o"
+      />
+</span>,
+    "Submit",
+  ],
+  "className": "btn btn-primary btn-outline",
+  "disabled": true,
+  "onMouseOut": [Function],
+  "onMouseOver": [Function],
+  "style": Object {},
+}
+`;
+
+exports[`mouseover 1`] = `
+Object {
+  "children": Array [
+    <span>
+      <i
+            className="fa fa-paper-plane-o"
+      />
+</span>,
+    "Incomplete",
+  ],
+  "className": "btn btn-primary btn-outline",
+  "disabled": true,
+  "onMouseOut": [Function],
+  "onMouseOver": [Function],
+  "style": Object {},
+}
+`;
+
+exports[`renders correctly 1`] = `
+<button
+  className="btn btn-primary"
+  onMouseOut={[Function]}
+  onMouseOver={[Function]}
+  style={Object {}}
+  type="submit"
+>
+  <span>
+    <i
+      className="fa fa-paper-plane-o"
+    />
+  </span>
+  Submit
+</button>
+`;

@@ -1,0 +1,30 @@
+{
+  "extends": "eslint-config-airbnb",
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "impliedStrict": true,
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "jest": true,
+    "node": true
+  },
+  "rules": {
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "react/react-in-jsx-scope": 2,
+    "no-unused-expressions": "off",
+    "comma-dangle": "off",
+    "react/jsx-filename-extension": "off",
+    "react/forbid-prop-types": "off",
+    "react/no-unused-prop-types": "off"
+  },
+  "plugins": [
+    "react"
+  ],
+  "parser": "babel-eslint"
+}
