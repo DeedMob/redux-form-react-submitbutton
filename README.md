@@ -19,7 +19,7 @@ Could be used without `redux-form`, but is intended for use with `redux-form`'s 
     render(){
       <form>
         <Field name="email" component={TextInput}/>
-        <SubmitButton {...this.props} type="update" />
+        <SubmitButton {...this.props} type="Update" />
       </form>
     }
   }
