@@ -1,7 +1,6 @@
 # redux-form-react-submitbutton
 
 A submit button for `redux-form` that dynamically changes based on the current redux-form state.
-Could be used without `redux-form`, but is intended for use with `redux-form`'s props.
 
 ## Demo
 
