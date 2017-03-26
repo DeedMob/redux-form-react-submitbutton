@@ -1,0 +1,32 @@
+{
+  "private": true,
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "babel src --out-dir dist",
+    "lint": "eslint src",
+    "prepublish": "npm run clean && npm run lint && npm run build"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.16.0",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "react-redux": "^5.0.3",
+    "redux": "^3.6.0",
+    "redux-form": "v6.6.0",
+    "redux-form-react-submitbutton": "file:../"
+  },
+  "devDependencies": {
+    "babel-core": "^6.18.2",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.2.8",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "cross-env": "^3.1.3",
+    "eslint": "^3.11.1",
+    "eslint-config-rackt": "1.1.1",
+    "eslint-loader": "^1.6.1",
+    "eslint-plugin-babel": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "rimraf": "^2.5.4"
+  }
+}
