@@ -6,15 +6,22 @@ Object {
     <span>
       <i
             className="fa fa-paper-plane-o"
+            style={
+                  Object {
+                        "marginRight": "5px",
+                      }
+            }
       />
 </span>,
     "Submit",
   ],
   "className": "btn btn-primary btn-outline",
-  "disabled": true,
   "onMouseOut": [Function],
   "onMouseOver": [Function],
-  "style": Object {},
+  "style": Object {
+    "cursor": "pointer",
+  },
+  "type": "submit",
 }
 `;
 
@@ -24,15 +31,22 @@ Object {
     <span>
       <i
             className="fa fa-paper-plane-o"
+            style={
+                  Object {
+                        "marginRight": "5px",
+                      }
+            }
       />
 </span>,
     "Incomplete",
   ],
   "className": "btn btn-primary btn-outline",
-  "disabled": true,
   "onMouseOut": [Function],
   "onMouseOver": [Function],
-  "style": Object {},
+  "style": Object {
+    "cursor": "pointer",
+  },
+  "type": "submit",
 }
 `;
 
@@ -47,6 +61,11 @@ exports[`renders correctly 1`] = `
   <span>
     <i
       className="fa fa-paper-plane-o"
+      style={
+        Object {
+          "marginRight": "5px",
+        }
+      }
     />
   </span>
   Submit

@@ -19,7 +19,7 @@ Could be used without `redux-form`, but is intended for use with `redux-form`'s 
     render(){
       <form>
         <Field name="email" component={TextInput}/>
-        <SubmitButton {...this.props} type="Update" />
+        <SubmitButton type="Update" />
       </form>
     }
   }
@@ -31,7 +31,14 @@ Could be used without `redux-form`, but is intended for use with `redux-form`'s 
 
 static defaultProps = {
   className: 'btn',
+  disabledClassName: 'btn-outline',
+  successClassName: 'btn-success',
+  errorClassName: 'btn-danger',
+  okClassName: 'btn-primary',
+  submittingClassName: 'btn-default',
+  invalidClassName: 'btn-warning',
   styles: {},
+  iconStyles: { marginRight: '5px' },
   type: 'Submit',
   showIcons: true,
   timeout: 3000,
@@ -53,15 +60,22 @@ static defaultProps = {
 }
 static propTypes = {
   timeout: PropTypes.number,
-  type: PropTypes.oneOf(['Create', 'Post', 'Update', 'Submit']).isRequired,
+  type: PropTypes.oneOf(['Create', 'Post', 'Update', 'Submit']),
   showIcons: PropTypes.bool,
   className: PropTypes.string,
+  disabledClassName: PropTypes.string,
+  successClassName: PropTypes.string,
+  errorClassName: PropTypes.string,
+  okClassName: PropTypes.string,
+  invalidClassName: PropTypes.string,
+  submittingClassName: PropTypes.string,
   styles: PropTypes.object,
-  submitting: PropTypes.bool,
-  submitFailed: PropTypes.bool,
-  submitSucceeded: PropTypes.bool,
-  invalid: PropTypes.bool,
-  pristine: PropTypes.bool,
+  iconStyles: PropTypes.object,
+  submitting: PropTypes.bool.isRequired,
+  submitFailed: PropTypes.bool.isRequired,
+  submitSucceeded: PropTypes.bool.isRequired,
+  invalid: PropTypes.bool.isRequired,
+  pristine: PropTypes.bool.isRequired,
   labelSubmitting: PropTypes.string,
   labelSubmit: PropTypes.string,
   labelUpdate: PropTypes.string,

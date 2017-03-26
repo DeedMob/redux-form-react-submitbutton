@@ -1,8 +1,8 @@
 {
   "name": "redux-form-react-submitbutton",
-  "version": "1.0.0",
+  "version": "1.8.0",
   "description": "A submit button for redux form that dynamically changes based on the current form state",
-  "main": "dist/SubmitButton.js",
+  "main": "dist/index.js",
   "scripts": {
     "clean": "rimraf dist",
     "build": "babel src --out-dir dist --ignore __tests__",
@@ -39,7 +39,9 @@
   },
   "homepage": "https://github.com/DeedMob/redux-form-react-submitbutton#readme",
   "dependencies": {
-    "react": "^15.4.2"
+    "react": "^15.4.2",
+    "react-redux": "^5.0.3",
+    "redux": "^3.6.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.0",
@@ -67,5 +69,14 @@
   "peerDependencies": {
     "font-awesome": "^4.7.0",
     "redux-form": "^6.6.0"
-  }
+  },
+  "npmName": "redux-form-react-submitbutton",
+  "npmFileMap": [
+    {
+      "basePath": "/dist/",
+      "files": [
+        "*.js"
+      ]
+    }
+  ]
 }
