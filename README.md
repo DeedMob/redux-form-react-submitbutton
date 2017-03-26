@@ -76,11 +76,13 @@ static propTypes = {
   submittingClassName: PropTypes.string,
   styles: PropTypes.object,
   iconStyles: PropTypes.object,
+  // start Passed in from the redux-form redux state
   submitting: PropTypes.bool.isRequired,
   submitFailed: PropTypes.bool.isRequired,
   submitSucceeded: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
   pristine: PropTypes.bool.isRequired,
+  // end
   labelSubmitting: PropTypes.string,
   labelSubmit: PropTypes.string,
   labelUpdate: PropTypes.string,
