@@ -146,7 +146,7 @@ export class SubmitButton extends Component {
     return (
       <div>
         <button
-          style={Object.assign(buttonStyles, isDisabled ? { cursor: 'pointer' } : {})}
+          style={Object.assign({}, buttonStyles, isDisabled ? { cursor: 'pointer' } : {})}
           className={`${className} ${dynamicClassName} ${isDisabled ? disabledClassName : ''}`}
           type="submit"
           onClick={this.handleClick}
