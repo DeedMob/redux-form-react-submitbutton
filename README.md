@@ -35,6 +35,7 @@ There are no required props
 ```js
 
 static defaultProps = {
+  // Button class names
   className: 'btn',
   disabledClassName: 'btn-outline',
   successClassName: 'btn-success',
@@ -42,22 +43,33 @@ static defaultProps = {
   okClassName: 'btn-primary',
   submittingClassName: 'btn-default',
   invalidClassName: 'btn-warning',
+  // added to outer div wrapper of error alert box
   syncErrorClassName: 'alert alert-danger',
-  styles: {},
-  iconStyles: { marginRight: '5px' },
+  // Header text to add to the error alert box
   labelErrorAlert: 'Please double-check that these fields are correct and try again',
-  type: 'Submit',
-  showIcons: true,
+  buttonStyles: {},
+  // Lets you pass a function that maps from Field `name` to something
+  // to field name to show in list of errors in box
   translateKeys: key => key,
-  // showWarnings: true,
+  // Should the box describing submission errors be shown on submitFailed?
   showErrors: true,
-  timeout: 2000,
+  // How long should a Submission Error or Success be shown before reseting?
+  asyncStatusDuration: 2000,
+  // Button type, for quicker start, but could be removed from this library
+  type: 'Submit',
+  // Button text labels
   labelSubmitting: '...Submitting',
-  // start OK button messages
+  labelSubmitFailed: 'Submission error',
+  labelSubmitSucceeded: 'Success!',
+  labelInvalid: 'Invalid',
+  // Button labels, used based on which prop `type` this button has
   labelSubmit: 'Submit',
   labelUpdate: 'Save Changes',
   labelPost: 'Post',
   labelCreate: 'Create',
+  // Icons set is by default font-awesome icons, and are added as classNames for an <i> element
+  iconStyles: { marginRight: '5px' },
+  showIcons: true,
   iconSubmit: 'fa fa-paper-plane-o',
   iconUpdate: 'fa fa-floppy-o',
   iconPost: 'fa fa-rocket',
@@ -65,19 +77,10 @@ static defaultProps = {
   iconError: 'fa fa-times',
   iconWarning: 'fa fa-warning',
   iconSubmitting: 'fa fa-spinner fa-pulse fa-fw',
-  iconSuccess: 'fa fa-check',
-  // start pristine button messages
-  labelPristineSubmit: 'Incomplete',
-  labelPristineUpdate: 'No Changes to Save',
-  labelPristinePost: 'Incomplete',
-  labelPristineCreate: 'Fill in required fields',
-  // end pristine button messages
-  labelInvalid: 'Invalid',
-  labelSubmitFailed: 'Submission error',
-  labelSubmitSucceeded: 'Success!'
+  iconSuccess: 'fa fa-check'
 }
 static propTypes = {
-  timeout: PropTypes.number,
+  asyncStatusDuration: PropTypes.number,
   type: PropTypes.oneOf(['Create', 'Post', 'Update', 'Submit']),
   showIcons: PropTypes.bool,
   iconSubmit: PropTypes.string,
@@ -88,7 +91,6 @@ static propTypes = {
   iconWarning: PropTypes.string,
   iconSubmitting: PropTypes.string,
   iconSuccess: PropTypes.string,
-  // showWarnings: PropTypes.bool,
   translateKeys: PropTypes.func,
   labelErrorAlert: PropTypes.string,
   showErrors: PropTypes.bool,
@@ -100,26 +102,20 @@ static propTypes = {
   okClassName: PropTypes.string,
   invalidClassName: PropTypes.string,
   submittingClassName: PropTypes.string,
-  styles: PropTypes.object,
+  buttonStyles: PropTypes.object,
   iconStyles: PropTypes.object,
   syncErrors: PropTypes.object.isRequired,
   syncWarnings: PropTypes.object.isRequired,
-  // start Passed in from the redux-form redux state
   submitting: PropTypes.bool.isRequired,
   submitFailed: PropTypes.bool.isRequired,
   submitSucceeded: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
   pristine: PropTypes.bool.isRequired,
-  // end
   labelSubmitting: PropTypes.string,
   labelSubmit: PropTypes.string,
   labelUpdate: PropTypes.string,
   labelPost: PropTypes.string,
   labelCreate: PropTypes.string,
-  labelPristineSubmit: PropTypes.string,
-  labelPristineUpdate: PropTypes.string,
-  labelPristinePost: PropTypes.string,
-  labelPristineCreate: PropTypes.string,
   labelInvalid: PropTypes.string,
   labelSubmitFailed: PropTypes.string,
   labelSubmitSucceeded: PropTypes.string
@@ -135,3 +131,8 @@ static propTypes = {
 
 - [ ] Handle nested object SyncErrors (for example in FieldArray examples)
 - [ ] Handle syncWarnings
+
+
+## Suggested usage
+
+Import this library and create your own React Component that wraps it, and passes in your configuration options or internationalization library. Then export that Component and use the new Component in all your forms.
