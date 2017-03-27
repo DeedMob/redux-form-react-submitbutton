@@ -1,7 +1,10 @@
 # redux-form-react-submitbutton
 
 A submit button for `redux-form` that dynamically changes based on the current redux-form state.
-Could be used without `redux-form`, but is intended for use with `redux-form`'s props.
+
+## Demo
+
+https://deedmob.github.io/redux-form-react-submitbutton/example/
 
 ## Installing
 
@@ -18,14 +21,16 @@ Could be used without `redux-form`, but is intended for use with `redux-form`'s 
   class AccountForm extends React.Component {
     render(){
       <form>
-        <Field name="email" component={TextInput}/>
-        <SubmitButton type="Update" />
+        <Field name="email" component={TextInput} />
+        <SubmitButton />
       </form>
     }
   }
 ```
 
 ## Props
+
+There are no required props
 
 ```js
 
@@ -99,11 +104,13 @@ static propTypes = {
   iconStyles: PropTypes.object,
   syncErrors: PropTypes.object.isRequired,
   syncWarnings: PropTypes.object.isRequired,
+  // start Passed in from the redux-form redux state
   submitting: PropTypes.bool.isRequired,
   submitFailed: PropTypes.bool.isRequired,
   submitSucceeded: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
   pristine: PropTypes.bool.isRequired,
+  // end
   labelSubmitting: PropTypes.string,
   labelSubmit: PropTypes.string,
   labelUpdate: PropTypes.string,
