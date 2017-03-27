@@ -132,6 +132,7 @@ static propTypes = {
 - [ ] Handle nested object SyncErrors (for example in FieldArray examples)
 - [ ] Handle syncWarnings
 - [ ] Redux-Form context syncErrors and internal Redux-Form syncErrors are not in sync (only sync on Submit), however this means that the alert box shows only a subset of its last submit errors 
+- [ ] Clear clicked State after submitSuccess
 
 
 ## Suggested usage
