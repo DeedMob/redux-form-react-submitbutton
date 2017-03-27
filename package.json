@@ -1,6 +1,6 @@
 {
   "name": "redux-form-react-submitbutton",
-  "version": "1.8.0",
+  "version": "2.0.0",
   "description": "A submit button for redux form that dynamically changes based on the current form state",
   "main": "dist/index.js",
   "scripts": {
@@ -67,7 +67,6 @@
     "sinon": "^2.1.0"
   },
   "peerDependencies": {
-    "font-awesome": "^4.7.0",
     "redux-form": "^6.6.0"
   },
   "npmName": "redux-form-react-submitbutton",

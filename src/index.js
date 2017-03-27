@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
+
 export class SubmitButton extends Component {
   static defaultProps = {
     className: 'btn',
@@ -10,17 +11,30 @@ export class SubmitButton extends Component {
     okClassName: 'btn-primary',
     submittingClassName: 'btn-default',
     invalidClassName: 'btn-warning',
+    syncErrorClassName: 'alert alert-danger',
     styles: {},
     iconStyles: { marginRight: '5px' },
+    labelErrorAlert: 'Please double-check that these fields are correct and try again',
     type: 'Submit',
     showIcons: true,
-    timeout: 3000,
+    translateKeys: key => key,
+    // showWarnings: true,
+    showErrors: true,
+    timeout: 2000,
     labelSubmitting: '...Submitting',
     // start OK button messages
     labelSubmit: 'Submit',
     labelUpdate: 'Save Changes',
     labelPost: 'Post',
     labelCreate: 'Create',
+    iconSubmit: 'fa fa-paper-plane-o',
+    iconUpdate: 'fa fa-floppy-o',
+    iconPost: 'fa fa-rocket',
+    iconCreate: 'fa fa-plus',
+    iconError: 'fa fa-times',
+    iconWarning: 'fa fa-warning',
+    iconSubmitting: 'fa fa-spinner fa-pulse fa-fw',
+    iconSuccess: 'fa fa-check',
     // start pristine button messages
     labelPristineSubmit: 'Incomplete',
     labelPristineUpdate: 'No Changes to Save',
@@ -35,7 +49,20 @@ export class SubmitButton extends Component {
     timeout: PropTypes.number,
     type: PropTypes.oneOf(['Create', 'Post', 'Update', 'Submit']),
     showIcons: PropTypes.bool,
+    iconSubmit: PropTypes.string,
+    iconUpdate: PropTypes.string,
+    iconPost: PropTypes.string,
+    iconCreate: PropTypes.string,
+    iconError: PropTypes.string,
+    iconWarning: PropTypes.string,
+    iconSubmitting: PropTypes.string,
+    iconSuccess: PropTypes.string,
+    // showWarnings: PropTypes.bool,
+    translateKeys: PropTypes.func,
+    labelErrorAlert: PropTypes.string,
+    showErrors: PropTypes.bool,
     className: PropTypes.string,
+    syncErrorClassName: PropTypes.string,
     disabledClassName: PropTypes.string,
     successClassName: PropTypes.string,
     errorClassName: PropTypes.string,
@@ -44,6 +71,8 @@ export class SubmitButton extends Component {
     submittingClassName: PropTypes.string,
     styles: PropTypes.object,
     iconStyles: PropTypes.object,
+    syncErrors: PropTypes.object.isRequired,
+    syncWarnings: PropTypes.object.isRequired,
     submitting: PropTypes.bool.isRequired,
     submitFailed: PropTypes.bool.isRequired,
     submitSucceeded: PropTypes.bool.isRequired,
@@ -67,10 +96,9 @@ export class SubmitButton extends Component {
     this.state = {
       lastActionWasSubmit: false,
       showSubmitState: false,
-      hover: false,
+      clicked: false,
     };
-    this.mouseOver = this.mouseOver.bind(this);
-    this.mouseOut = this.mouseOut.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.submitting) {
@@ -81,98 +109,65 @@ export class SubmitButton extends Component {
       setTimeout(() => this.setState({ showSubmitState: false }), this.props.timeout);
     }
   }
-  mouseOver() {
-    this.setState({ hover: true });
-  }
-  mouseOut() {
-    this.setState({ hover: false });
+  handleClick() {
+    this.setState({ clicked: true });
   }
   render() {
     const { className, styles, showIcons, iconStyles, disabledClassName, okClassName,
        successClassName, errorClassName, invalidClassName, submittingClassName } = this.props;
     const defaultLabel = this.props[`label${this.props.type}`];
-    const defaultPristineLabel = this.props[`labelPristine${this.props.type}`];
+    // const defaultPristineLabel = this.props[`labelPristine${this.props.type}`];
+    const defaultIcon = this.props[`icon${this.props.type}`];
 
-    const classNames = [className];
+    let dynamicClassName = '';
     let buttonIcon = null;
     let buttonText = null;
-    let isDisabled = false;
+    const isDisabled = this.props.submitting || this.props.invalid;
+
+    dynamicClassName = okClassName;
+    buttonIcon = (<span><i style={iconStyles} className={defaultIcon} /></span>);
+    buttonText = defaultLabel;
 
     if (this.props.submitFailed && this.state.showSubmitState) {
-      isDisabled = true;
-      classNames.push(errorClassName);
-      if (showIcons) {
-        buttonIcon = (<span><i style={iconStyles} className="fa fa-times" /></span>);
-      }
-      buttonText = (this.props.labelSubmitFailed);
+      dynamicClassName = errorClassName;
+      buttonIcon = (<span><i style={iconStyles} className={this.props.iconError} /></span>);
+      buttonText = this.props.labelSubmitFailed;
     } else if (this.props.submitSucceeded && this.state.showSubmitState) {
-      isDisabled = true;
-      classNames.push(successClassName);
-      if (showIcons) {
-        buttonIcon = (<span><i style={iconStyles} className="fa fa-check" /></span>);
-      }
-      buttonText = (this.props.labelSubmitSucceeded);
+      dynamicClassName = successClassName;
+      buttonIcon = (<span><i style={iconStyles} className={this.props.iconSuccess} /></span>);
+      buttonText = this.props.labelSubmitSucceeded;
     } else if (this.props.submitting) {
-      isDisabled = true;
-      classNames.push(submittingClassName);
-      if (showIcons) {
-        buttonIcon = (<span><i style={iconStyles} className="fa fa-spinner fa-pulse fa-fw" /></span>);
-      }
-      buttonText = (this.props.labelSubmitting);
-    } else if (this.props.invalid && !this.props.pristine) {
-      isDisabled = true;
-      classNames.push(invalidClassName);
-      if (showIcons) {
-        buttonIcon = (<span><i style={iconStyles} className="fa fa-warning" /></span>);
-      }
-      if (this.state.hover) {
-        buttonText = (this.props.labelInvalid);
-      } else {
-        buttonText = (defaultLabel);
-      }
-    } else if (this.props.invalid && this.props.pristine) {
-      isDisabled = true;
-      classNames.push(invalidClassName);
-      if (showIcons) {
-        buttonIcon = (<span><i style={iconStyles} className="fa fa-warning" /></span>);
-      }
-      if (this.state.hover) {
-        buttonText = defaultPristineLabel;
-      } else {
-        buttonText = (defaultLabel);
-      }
-    } else if (!this.props.submitting && !this.props.pristine) {
-      isDisabled = false;
-      classNames.push(okClassName);
-      if (showIcons) {
-        buttonIcon = (<span><i style={iconStyles} className="fa fa-paper-plane-o" /></span>);
-      }
-      buttonText = (defaultLabel);
-    } else if (!this.props.submitting && this.props.pristine) {
-      isDisabled = true;
-      classNames.push(okClassName);
-      if (showIcons) {
-        buttonIcon = (<span><i style={iconStyles} className="fa fa-paper-plane-o" /></span>);
-      }
-      if (this.state.hover) {
-        buttonText = (defaultPristineLabel);
-      } else {
-        buttonText = (defaultLabel);
-      }
+      dynamicClassName = submittingClassName;
+      buttonIcon = (<span><i style={iconStyles} className={this.props.iconSubmitting} /></span>);
+      buttonText = this.props.labelSubmitting;
+    } else if (this.props.invalid && this.state.clicked) {
+      dynamicClassName = (invalidClassName);
+      buttonIcon = (<span><i style={iconStyles} className={this.props.iconWarning} /></span>);
+      buttonText = this.props.labelInvalid;
     }
-    if (isDisabled) {
-      classNames.push(disabledClassName);
-    }
+
     return (
-      <button
-        style={Object.assign(styles, isDisabled ? { cursor: 'pointer' } : {})}
-        onMouseOver={this.mouseOver}
-        onMouseOut={this.mouseOut}
-        className={classNames.join(' ')}
-        type="submit"
-      >
-        {buttonIcon}{buttonText}
-      </button>
+      <div>
+        <button
+          style={Object.assign(styles, isDisabled ? { cursor: 'pointer' } : {})}
+          className={`${className} ${dynamicClassName} ${isDisabled ? disabledClassName : ''}`}
+          type="submit"
+          onClick={this.handleClick}
+        >
+          {showIcons && buttonIcon}{buttonText}
+        </button>
+        {this.props.showErrors && (this.props.submitFailed || this.state.clicked) &&
+          Object.keys(this.props.syncErrors).length > 0 &&
+          <div className={this.props.syncErrorClassName} role="alert">
+            {this.props.labelErrorAlert}
+            <ul>
+              {Object.keys(this.props.syncErrors).map(key =>
+                <li key={key}>{this.props.translateKeys(key)}</li>
+              )}
+            </ul>
+          </div>
+        }
+      </div>
     );
   }
 }
@@ -182,6 +177,8 @@ const mapStateToProps = (state, ownProps) => {
   const { _reduxForm } = ownProps;
 
   return {
+    syncErrors: _reduxForm.syncErrors || {},
+    syncWarnings: _reduxForm.syncWarnings || {},
     submitting: _reduxForm.submitting,
     pristine: _reduxForm.pristine,
     dirty: _reduxForm.dirty,

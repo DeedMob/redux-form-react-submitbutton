@@ -37,7 +37,9 @@ const SimpleForm = (props) => {
         </div>
       </div>
       <div>
-        <SubmitButton />
+        <SubmitButton
+          translateKeys={key => key.toUpperCase()}
+        />
         <br/>
         <button className="btn" type="button" disabled={pristine || submitting} onClick={reset}>
           Clear Values (not included in library)

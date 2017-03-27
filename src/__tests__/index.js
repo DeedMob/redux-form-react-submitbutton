@@ -9,7 +9,9 @@ const defaultProps = {
   submitFailed: false,
   submitSucceeded: false,
   invalid: false,
-  pristine: false
+  pristine: false,
+  syncErrors: {},
+  syncWarnings: {},
 };
 
 it('renders correctly', () => {
@@ -17,14 +19,18 @@ it('renders correctly', () => {
   expect(tree).toMatchSnapshot();
 });
 
-it('Changes text on pristine hover', () => {
-  const component = shallow(<SubmitButton {...defaultProps} pristine />);
+it('renders syncErrors correctly', () => {
+  const tree = renderer.create(<SubmitButton {...defaultProps} syncErrors={{ field1: 'Field 1 error', field2: 'Field 2 Error' }} />).toJSON();
+  expect(tree).toMatchSnapshot('errorAlert');
+});
 
-  component.find('button').simulate('mouseover');
-  expect(component.find('button').props()).toMatchSnapshot('mouseover');
 
-  component.find('button').simulate('mouseout');
-  expect(component.find('button').props()).toMatchSnapshot('mouseout');
+it('Changes text on invalid click', () => {
+  const component = shallow(<SubmitButton {...defaultProps} invalid />);
+
+  expect(component.find('div').props()).toMatchSnapshot('beforeClickInvalid');
+  component.find('button').simulate('click');
+  expect(component.find('div').props()).toMatchSnapshot('afterClickInvalid');
 });
 
 

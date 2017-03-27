@@ -1,73 +1,107 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`mouseout 1`] = `
+exports[`afterClickInvalid 1`] = `
 Object {
   "children": Array [
-    <span>
-      <i
-            className="fa fa-paper-plane-o"
-            style={
-                  Object {
-                        "marginRight": "5px",
-                      }
-            }
-      />
-</span>,
-    "Submit",
+    <button
+      className="btn btn-warning btn-outline"
+      onClick={[Function]}
+      style={
+            Object {
+                  "cursor": "pointer",
+                }
+      }
+      type="submit"
+>
+      <span>
+            <i
+                  className="fa fa-warning"
+                  style={
+                        Object {
+                              "marginRight": "5px",
+                            }
+                  }
+            />
+      </span>
+      Invalid
+</button>,
+    false,
   ],
-  "className": "btn btn-primary btn-outline",
-  "onMouseOut": [Function],
-  "onMouseOver": [Function],
-  "style": Object {
-    "cursor": "pointer",
-  },
-  "type": "submit",
 }
 `;
 
-exports[`mouseover 1`] = `
+exports[`beforeClickInvalid 1`] = `
 Object {
   "children": Array [
+    <button
+      className="btn btn-primary btn-outline"
+      onClick={[Function]}
+      style={
+            Object {
+                  "cursor": "pointer",
+                }
+      }
+      type="submit"
+>
+      <span>
+            <i
+                  className="fa fa-paper-plane-o"
+                  style={
+                        Object {
+                              "marginRight": "5px",
+                            }
+                  }
+            />
+      </span>
+      Submit
+</button>,
+    false,
+  ],
+}
+`;
+
+exports[`errorAlert 1`] = `
+<div>
+  <button
+    className="btn btn-primary "
+    onClick={[Function]}
+    style={Object {}}
+    type="submit"
+  >
     <span>
       <i
-            className="fa fa-paper-plane-o"
-            style={
-                  Object {
-                        "marginRight": "5px",
-                      }
-            }
+        className="fa fa-paper-plane-o"
+        style={
+          Object {
+            "marginRight": "5px",
+          }
+        }
       />
-</span>,
-    "Incomplete",
-  ],
-  "className": "btn btn-primary btn-outline",
-  "onMouseOut": [Function],
-  "onMouseOver": [Function],
-  "style": Object {
-    "cursor": "pointer",
-  },
-  "type": "submit",
-}
+    </span>
+    Submit
+  </button>
+</div>
 `;
 
 exports[`renders correctly 1`] = `
-<button
-  className="btn btn-primary"
-  onMouseOut={[Function]}
-  onMouseOver={[Function]}
-  style={Object {}}
-  type="submit"
->
-  <span>
-    <i
-      className="fa fa-paper-plane-o"
-      style={
-        Object {
-          "marginRight": "5px",
+<div>
+  <button
+    className="btn btn-primary "
+    onClick={[Function]}
+    style={Object {}}
+    type="submit"
+  >
+    <span>
+      <i
+        className="fa fa-paper-plane-o"
+        style={
+          Object {
+            "marginRight": "5px",
+          }
         }
-      }
-    />
-  </span>
-  Submit
-</button>
+      />
+    </span>
+    Submit
+  </button>
+</div>
 `;
