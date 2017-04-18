@@ -80,6 +80,7 @@ export class SubmitButton extends Component {
     submitSucceeded: PropTypes.bool.isRequired,
     invalid: PropTypes.bool.isRequired,
     pristine: PropTypes.bool.isRequired,
+    dirty: PropTypes.bool.isRequired,
     labelSubmitting: PropTypes.string,
     labelSubmit: PropTypes.string,
     labelUpdate: PropTypes.string,
@@ -99,6 +100,9 @@ export class SubmitButton extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
   componentWillReceiveProps(nextProps) {
+    if (nextProps.pristine) {
+      this.setState({ clicked: false });
+    }
     if (nextProps.submitting) {
       this.setState({ lastActionWasSubmit: true });
     }
