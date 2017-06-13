@@ -10,6 +10,7 @@ const defaultProps = {
   submitSucceeded: false,
   invalid: false,
   pristine: false,
+  dirty: false,
   syncErrors: {},
   syncWarnings: {},
 };
