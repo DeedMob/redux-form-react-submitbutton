@@ -13,9 +13,9 @@ export class SubmitButton extends Component {
     submittingClassName: 'btn-default',
     invalidClassName: 'btn-warning',
     // added to outer div wrapper of error alert box
-    syncErrorClassName: 'alert alert-danger',
+    syncErrorClassName: 'alert alert-warning',
     // Header text to add to the error alert box
-    labelErrorAlert: 'Please double-check that these fields are correct and try again',
+    labelErrorAlert: 'Please double-check following fields:',
     buttonStyles: {},
     // Lets you pass a function that maps from Field `name` to something
     // to field name to show in list of errors in box
@@ -128,27 +128,22 @@ export class SubmitButton extends Component {
     dynamicClassName = okClassName;
     buttonIcon = (<span><i style={iconStyles} className={defaultIcon} /></span>);
     buttonText = defaultLabel;
-
-    if (this.props.submitFailed && this.state.showSubmitState) {
-      dynamicClassName = errorClassName;
-      buttonIcon = (<span><i style={iconStyles} className={this.props.iconError} /></span>);
-      buttonText = this.props.labelSubmitFailed;
-    } else if (this.props.submitSucceeded && this.state.showSubmitState) {
-      dynamicClassName = successClassName;
-      buttonIcon = (<span><i style={iconStyles} className={this.props.iconSuccess} /></span>);
-      buttonText = this.props.labelSubmitSucceeded;
-    } else if (this.props.submitting) {
-      dynamicClassName = submittingClassName;
-      buttonIcon = (<span><i style={iconStyles} className={this.props.iconSubmitting} /></span>);
-      buttonText = this.props.labelSubmitting;
-    } else if (this.props.invalid && this.state.clicked) {
-      dynamicClassName = (invalidClassName);
-      buttonIcon = (<span><i style={iconStyles} className={this.props.iconWarning} /></span>);
-      buttonText = this.props.labelInvalid;
-    }
-
+    const syncErrorsRay = Object.keys(this.props.syncErrors);
     return (
       <div>
+        {this.props.showErrors && (this.props.submitFailed || this.state.clicked) &&
+          Object.keys(this.props.syncErrors).length > 0 &&
+          <div className={this.props.syncErrorClassName} role="alert">
+            <i className="fa fa-exclamation"></i>
+            {this.props.labelErrorAlert}           
+            {syncErrorsRay.map((key, i) =>
+              <span key={key}>
+                {' '}{this.props.translateKeys(key)}
+                {i === syncErrorsRay.length - 1 ? '' : ','}
+              </span>
+            )}
+          </div>
+        }
         <button
           style={Object.assign({}, buttonStyles, isDisabled ? { cursor: 'pointer' } : {})}
           className={`${className} ${dynamicClassName} ${isDisabled ? disabledClassName : ''}`}
@@ -157,17 +152,6 @@ export class SubmitButton extends Component {
         >
           {showIcons && buttonIcon}{buttonText}
         </button>
-        {this.props.showErrors && (this.props.submitFailed || this.state.clicked) &&
-          Object.keys(this.props.syncErrors).length > 0 &&
-          <div className={this.props.syncErrorClassName} role="alert">
-            {this.props.labelErrorAlert}
-            <ul>
-              {Object.keys(this.props.syncErrors).map(key =>
-                <li key={key}>{this.props.translateKeys(key)}</li>
-              )}
-            </ul>
-          </div>
-        }
       </div>
     );
   }
