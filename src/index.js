@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 
 export class SubmitButton extends Component {
   static defaultProps = {
+    // Component class name
+    submitButtonClassName: 'submit-button'
     // Button class names
     className: 'btn',
     disabledClassName: 'btn-outline',
@@ -22,6 +24,7 @@ export class SubmitButton extends Component {
     translateKeys: key => key,
     // Should the box describing submission errors be shown on submitFailed?
     showErrors: true,
+    alertListView: true,
     // How long should a Submission Error or Success be shown before reseting?
     asyncStatusDuration: 2000,
     // Button type, for quicker start, but could be removed from this library
@@ -62,6 +65,7 @@ export class SubmitButton extends Component {
     iconSuccess: PropTypes.string,
     translateKeys: PropTypes.func,
     labelErrorAlert: PropTypes.string,
+    alertListView: PropTypes.bool,
     showErrors: PropTypes.bool,
     className: PropTypes.string,
     syncErrorClassName: PropTypes.string,
@@ -116,7 +120,7 @@ export class SubmitButton extends Component {
   }
   render() {
     const { className, buttonStyles, showIcons, iconStyles, disabledClassName, okClassName,
-       successClassName, errorClassName, invalidClassName, submittingClassName } = this.props;
+       successClassName, errorClassName, alertListView, invalidClassName, submittingClassName } = this.props;
     const defaultLabel = this.props[`label${this.props.type}`];
     const defaultIcon = this.props[`icon${this.props.type}`];
 
@@ -148,26 +152,27 @@ export class SubmitButton extends Component {
     }
 
     return (
-      <div>
+      <div className={this.props.submitAndError}>
+        {this.props.showErrors && (this.props.submitFailed || this.state.clicked) &&
+          Object.keys(this.props.syncErrors).length > 0 &&
+          <div className={this.props.syncErrorClassName} role="alert">
+            {this.props.labelErrorAlert}
+            <div>
+              {alertListView && {Object.keys(this.props.syncErrors).map(key =>
+                <li key={key}>{this.props.translateKeys(key)}</li>
+              )}}
+              {!alertListView && <p>{Object.keys(this.props.syncErros).join(", ")}</p>}
+            </div>
+          </div>
+        }
         <button
           style={Object.assign({}, buttonStyles, isDisabled ? { cursor: 'pointer' } : {})}
           className={`${className} ${dynamicClassName} ${isDisabled ? disabledClassName : ''}`}
           type="submit"
           onClick={this.handleClick}
-        >
+          >
           {showIcons && buttonIcon}{buttonText}
         </button>
-        {this.props.showErrors && (this.props.submitFailed || this.state.clicked) &&
-          Object.keys(this.props.syncErrors).length > 0 &&
-          <div className={this.props.syncErrorClassName} role="alert">
-            {this.props.labelErrorAlert}
-            <ul>
-              {Object.keys(this.props.syncErrors).map(key =>
-                <li key={key}>{this.props.translateKeys(key)}</li>
-              )}
-            </ul>
-          </div>
-        }
       </div>
     );
   }
