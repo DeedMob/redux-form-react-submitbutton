@@ -3,36 +3,7 @@
 exports[`afterClickInvalid 1`] = `
 Object {
   "children": Array [
-    <button
-      className="btn btn-warning btn-outline"
-      onClick={[Function]}
-      style={
-            Object {
-                  "cursor": "pointer",
-                }
-      }
-      type="submit"
->
-      <span>
-            <i
-                  className="fa fa-warning"
-                  style={
-                        Object {
-                              "marginRight": "5px",
-                            }
-                  }
-            />
-      </span>
-      Invalid
-</button>,
     false,
-  ],
-}
-`;
-
-exports[`beforeClickInvalid 1`] = `
-Object {
-  "children": Array [
     <button
       className="btn btn-primary btn-outline"
       onClick={[Function]}
@@ -55,7 +26,36 @@ Object {
       </span>
       Submit
 </button>,
+  ],
+}
+`;
+
+exports[`beforeClickInvalid 1`] = `
+Object {
+  "children": Array [
     false,
+    <button
+      className="btn btn-primary btn-outline"
+      onClick={[Function]}
+      style={
+            Object {
+                  "cursor": "pointer",
+                }
+      }
+      type="submit"
+>
+      <span>
+            <i
+                  className="fa fa-paper-plane-o"
+                  style={
+                        Object {
+                              "marginRight": "5px",
+                            }
+                  }
+            />
+      </span>
+      Submit
+</button>,
   ],
 }
 `;

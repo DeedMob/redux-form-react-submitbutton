@@ -115,8 +115,8 @@ export class SubmitButton extends Component {
     this.setState({ clicked: true });
   }
   render() {
-    const { className, buttonStyles, showIcons, iconStyles, disabledClassName, okClassName,
-       successClassName, errorClassName, invalidClassName, submittingClassName } = this.props;
+    const { className, buttonStyles, showIcons, iconStyles, disabledClassName, okClassName
+     } = this.props;
     const defaultLabel = this.props[`label${this.props.type}`];
     const defaultIcon = this.props[`icon${this.props.type}`];
 
@@ -134,8 +134,8 @@ export class SubmitButton extends Component {
         {this.props.showErrors && (this.props.submitFailed || this.state.clicked) &&
           Object.keys(this.props.syncErrors).length > 0 &&
           <div className={this.props.syncErrorClassName} role="alert">
-            <i className="fa fa-exclamation"></i>
-            {this.props.labelErrorAlert}           
+            <i className="fa fa-exclamation" style={{ padding: '0 10px' }} />
+            {this.props.labelErrorAlert}
             {syncErrorsRay.map((key, i) =>
               <span key={key}>
                 {' '}{this.props.translateKeys(key)}
