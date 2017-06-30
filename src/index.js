@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 export class SubmitButton extends Component {
   static defaultProps = {
     // Component class name
-    submitButtonClassName: 'submit-button'
+    componentClassName: 'submit-button',
     // Button class names
     className: 'btn',
     disabledClassName: 'btn-outline',
@@ -22,9 +22,12 @@ export class SubmitButton extends Component {
     // Lets you pass a function that maps from Field `name` to something
     // to field name to show in list of errors in box
     translateKeys: key => key,
-    // Should the box describing submission errors be shown on submitFailed?
+    // Should the alert box display errors on submitFailed? As list or separated by commas?
     showErrors: true,
     alertListView: true,
+    // Should the alert box have a icon?
+    showAlertIcon: false,
+    alertIcon: 'fa fa-exclamation',
     // How long should a Submission Error or Success be shown before reseting?
     asyncStatusDuration: 2000,
     // Button type, for quicker start, but could be removed from this library
@@ -52,6 +55,7 @@ export class SubmitButton extends Component {
     iconSuccess: 'fa fa-check'
   }
   static propTypes = {
+    componentClassName: PropTypes.string.isRequired,
     asyncStatusDuration: PropTypes.number,
     type: PropTypes.oneOf(['Create', 'Post', 'Update', 'Submit']),
     showIcons: PropTypes.bool,
@@ -66,6 +70,8 @@ export class SubmitButton extends Component {
     translateKeys: PropTypes.func,
     labelErrorAlert: PropTypes.string,
     alertListView: PropTypes.bool,
+    alertIcon: PropTypes.string,
+    showAlertIcon: PropTypes.bool.isRequired,
     showErrors: PropTypes.bool,
     className: PropTypes.string,
     syncErrorClassName: PropTypes.string,
@@ -119,8 +125,11 @@ export class SubmitButton extends Component {
     this.setState({ clicked: true });
   }
   render() {
-    const { className, buttonStyles, showIcons, iconStyles, disabledClassName, okClassName,
-       successClassName, errorClassName, alertListView, invalidClassName, submittingClassName } = this.props;
+    const {
+      className, buttonStyles, showIcons, iconStyles, disabledClassName, okClassName,
+      successClassName, errorClassName, alertListView, alertIcon, showAlertIcon, invalidClassName,
+      submittingClassName
+    } = this.props;
     const defaultLabel = this.props[`label${this.props.type}`];
     const defaultIcon = this.props[`icon${this.props.type}`];
 
@@ -152,17 +161,16 @@ export class SubmitButton extends Component {
     }
 
     return (
-      <div className={this.props.submitAndError}>
+      <div className={this.props.componentClassName} >
         {this.props.showErrors && (this.props.submitFailed || this.state.clicked) &&
           Object.keys(this.props.syncErrors).length > 0 &&
           <div className={this.props.syncErrorClassName} role="alert">
-            {this.props.labelErrorAlert}
-            <div>
-              {alertListView && {Object.keys(this.props.syncErrors).map(key =>
-                <li key={key}>{this.props.translateKeys(key)}</li>
-              )}}
-              {!alertListView && <p>{Object.keys(this.props.syncErros).join(", ")}</p>}
-            </div>
+            {showAlertIcon && <i className={alertIcon} />}{this.props.labelErrorAlert}{': '}
+            {alertListView && <ul> {Object.keys(this.props.syncErrors).map(key =>
+              <li key={key}>{this.props.translateKeys(key)}</li>)} </ul>}
+              {!alertListView && <span>{Object.keys(this.props.syncErrors).map(key =>
+                this.props.translateKeys(key)).join(', ')}</span>
+              }
           </div>
         }
         <button
@@ -170,7 +178,7 @@ export class SubmitButton extends Component {
           className={`${className} ${dynamicClassName} ${isDisabled ? disabledClassName : ''}`}
           type="submit"
           onClick={this.handleClick}
-          >
+        >
           {showIcons && buttonIcon}{buttonText}
         </button>
       </div>
