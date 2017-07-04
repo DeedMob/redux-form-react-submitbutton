@@ -27,6 +27,7 @@ Object {
       Submit
 </button>,
   ],
+  "className": "submit-button",
 }
 `;
 
@@ -57,11 +58,14 @@ Object {
       Submit
 </button>,
   ],
+  "className": "submit-button",
 }
 `;
 
 exports[`errorAlert 1`] = `
-<div>
+<div
+  className="submit-button"
+>
   <button
     className="btn btn-primary "
     onClick={[Function]}
@@ -84,7 +88,9 @@ exports[`errorAlert 1`] = `
 `;
 
 exports[`renders correctly 1`] = `
-<div>
+<div
+  className="submit-button"
+>
   <button
     className="btn btn-primary "
     onClick={[Function]}
