@@ -117,7 +117,8 @@ export class SubmitButton extends Component {
     this.setState({ clicked: true });
   }
   render() {
-    const { className, buttonStyles, showIcons, iconStyles, disabledClassName, okClassName, componentClassName
+    const { className, buttonStyles, showIcons, iconStyles, disabledClassName, okClassName,
+      componentClassName
      } = this.props;
     const defaultLabel = this.props[`label${this.props.type}`];
     const defaultIcon = this.props[`icon${this.props.type}`];
