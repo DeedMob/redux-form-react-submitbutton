@@ -137,7 +137,7 @@ export class SubmitButton extends Component {
         {this.props.showErrors && (this.props.submitFailed || this.state.clicked) &&
           Object.keys(this.props.syncErrors).length > 0 &&
           <div className={this.props.syncErrorClassName} role="alert">
-            <i className="fa fa-exclamation" style={{ padding: '0 10px' }} />
+            <i className="fa fa-exclamation" style={{ padding: '0 10px 0 0' }} />
             {this.props.labelErrorAlert}
             {syncErrorsRay.map((key, i) =>
               <span key={key}>
