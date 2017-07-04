@@ -6,6 +6,7 @@ export class SubmitButton extends Component {
   static defaultProps = {
     // Button class names
     className: 'btn',
+    componentClassName: 'submit-button',
     disabledClassName: 'btn-outline',
     successClassName: 'btn-success',
     errorClassName: 'btn-danger',
@@ -49,6 +50,7 @@ export class SubmitButton extends Component {
     iconSuccess: 'fa fa-check'
   }
   static propTypes = {
+    componentClassName: PropTypes.string.isRequired,
     asyncStatusDuration: PropTypes.number,
     type: PropTypes.oneOf(['Create', 'Post', 'Update', 'Submit']),
     showIcons: PropTypes.bool,
@@ -115,7 +117,7 @@ export class SubmitButton extends Component {
     this.setState({ clicked: true });
   }
   render() {
-    const { className, buttonStyles, showIcons, iconStyles, disabledClassName, okClassName
+    const { className, buttonStyles, showIcons, iconStyles, disabledClassName, okClassName, componentClassName
      } = this.props;
     const defaultLabel = this.props[`label${this.props.type}`];
     const defaultIcon = this.props[`icon${this.props.type}`];
@@ -130,7 +132,7 @@ export class SubmitButton extends Component {
     buttonText = defaultLabel;
     const syncErrorsRay = Object.keys(this.props.syncErrors);
     return (
-      <div>
+      <div className={componentClassName}>
         {this.props.showErrors && (this.props.submitFailed || this.state.clicked) &&
           Object.keys(this.props.syncErrors).length > 0 &&
           <div className={this.props.syncErrorClassName} role="alert">
