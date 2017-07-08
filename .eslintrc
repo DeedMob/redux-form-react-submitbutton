@@ -22,7 +22,8 @@
     "react/jsx-filename-extension": "off",
     "react/forbid-prop-types": "off",
     "react/no-unused-prop-types": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "react/prop-types": "off",
   },
   "plugins": [
     "react"

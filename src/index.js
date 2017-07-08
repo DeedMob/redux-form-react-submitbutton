@@ -90,7 +90,7 @@ export class SubmitButton extends Component {
     labelCreate: PropTypes.string,
     labelInvalid: PropTypes.string,
     labelSubmitFailed: PropTypes.string,
-    labelSubmitSucceeded: PropTypes.string
+    labelSubmitSucceeded: PropTypes.string,
   }
   constructor(props) {
     super(props);
@@ -136,7 +136,7 @@ export class SubmitButton extends Component {
       <div className={componentClassName}>
         {this.props.showErrors && (this.props.submitFailed || this.state.clicked) &&
           Object.keys(this.props.syncErrors).length > 0 &&
-          <div className={this.props.syncErrorClassName} role="alert">
+          <div className={this.props.syncErrorClassName} style={{ marginBottom: '14px' }} role="alert">
             <i className="fa fa-exclamation" style={{ padding: '0 10px 0 0' }} />
             {this.props.labelErrorAlert}
             {syncErrorsRay.map((key, i) =>
@@ -147,6 +147,7 @@ export class SubmitButton extends Component {
             )}
           </div>
         }
+        {this.props.children}
         <button
           style={Object.assign({}, buttonStyles, isDisabled ? { cursor: 'pointer' } : {})}
           className={`${className} ${dynamicClassName} ${isDisabled ? disabledClassName : ''}`}
