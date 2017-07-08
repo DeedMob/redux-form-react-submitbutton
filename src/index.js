@@ -147,7 +147,6 @@ export class SubmitButton extends Component {
             )}
           </div>
         }
-        {this.props.children}
         <button
           style={Object.assign({}, buttonStyles, isDisabled ? { cursor: 'pointer' } : {})}
           className={`${className} ${dynamicClassName} ${isDisabled ? disabledClassName : ''}`}
@@ -156,6 +155,7 @@ export class SubmitButton extends Component {
         >
           {showIcons && buttonIcon}{buttonText}
         </button>
+        {this.props.children}
       </div>
     );
   }

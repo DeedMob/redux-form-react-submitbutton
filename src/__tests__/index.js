@@ -25,16 +25,6 @@ it('renders syncErrors correctly', () => {
   expect(tree).toMatchSnapshot('errorAlert');
 });
 
-
-it('Changes text on invalid click', () => {
-  const component = shallow(<SubmitButton {...defaultProps} invalid />);
-
-  expect(component.find('div').props()).toMatchSnapshot('beforeClickInvalid');
-  component.find('button').simulate('click');
-  expect(component.find('div').props()).toMatchSnapshot('afterClickInvalid');
-});
-
-
 it('to disable `button` on invalid', () => {
   const wrapper = shallow(<SubmitButton {...defaultProps} invalid />);
   expect(wrapper.find('button').props().disabled).toBeTruthy;
