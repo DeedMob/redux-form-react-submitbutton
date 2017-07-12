@@ -1,6 +1,6 @@
 {
   "name": "@deedmob/redux-form-react-submitbutton",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "A submit button for redux form that dynamically changes based on the current form state",
   "private": false,
   "main": "dist/index.js",
