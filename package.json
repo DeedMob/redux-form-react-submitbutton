@@ -1,6 +1,6 @@
 {
   "name": "@deedmob/redux-form-react-submitbutton",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "A submit button for redux form that dynamically changes based on the current form state",
   "private": false,
   "main": "dist/index.js",
@@ -69,7 +69,7 @@
     "sinon": "^2.1.0"
   },
   "peerDependencies": {
-    "redux-form": "^6.6.0"
+    "redux-form": "*"
   },
   "npmName": "redux-form-react-submitbutton",
   "npmFileMap": [
