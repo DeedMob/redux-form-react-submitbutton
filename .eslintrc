@@ -19,6 +19,7 @@
     "react/react-in-jsx-scope": 2,
     "no-unused-expressions": "off",
     "comma-dangle": "off",
+    "no-nested-ternary": "off",
     "react/jsx-filename-extension": "off",
     "react/forbid-prop-types": "off",
     "react/no-unused-prop-types": "off",

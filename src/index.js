@@ -76,7 +76,7 @@ export class SubmitButton extends Component {
     submittingClassName: PropTypes.string,
     buttonStyles: PropTypes.object,
     iconStyles: PropTypes.object,
-    error: PropTypes.string,
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     syncErrors: PropTypes.object.isRequired,
     syncWarnings: PropTypes.object.isRequired,
     submitting: PropTypes.bool.isRequired,
