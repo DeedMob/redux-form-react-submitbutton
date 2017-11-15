@@ -76,6 +76,7 @@ export class SubmitButton extends Component {
     buttonStyles: PropTypes.object,
     iconStyles: PropTypes.object,
     syncErrors: PropTypes.object.isRequired,
+    submitErrors: PropTypes.object,
     syncWarnings: PropTypes.object.isRequired,
     submitting: PropTypes.bool.isRequired,
     submitFailed: PropTypes.bool.isRequired,
@@ -131,7 +132,7 @@ export class SubmitButton extends Component {
     dynamicClassName = okClassName;
     buttonIcon = (<span><i style={iconStyles} className={defaultIcon} /></span>);
     buttonText = defaultLabel;
-    const syncErrorsRay = Object.keys(this.props.syncErrors);
+    const syncErrorsRay = Object.keys(Object.assign({}, this.props.submitErrors, this.props.syncErrors));
     return (
       <div className={componentClassName}>
         {this.props.showErrors && (this.props.submitFailed || this.state.clicked) &&
@@ -167,6 +168,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     syncErrors: _reduxForm.syncErrors || {},
+    submitErrors: _reduxForm.submitErrors || {},
     syncWarnings: _reduxForm.syncWarnings || {},
     submitting: _reduxForm.submitting,
     pristine: _reduxForm.pristine,
