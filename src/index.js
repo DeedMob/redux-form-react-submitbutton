@@ -32,7 +32,6 @@ export class SubmitButton extends Component {
     labelSubmitFailed: 'Submission error',
     labelSubmitSucceeded: 'Success!',
     labelInvalid: 'Invalid',
-    submitErrors: {},
     // Button labels, used based on which prop `type` this button has
     labelSubmit: 'Submit',
     labelUpdate: 'Save Changes',
@@ -41,6 +40,7 @@ export class SubmitButton extends Component {
     // Icons set is by default font-awesome icons, and are added as classNames for an <i> element
     iconStyles: { marginRight: '5px' },
     showIcons: true,
+    error: false,
     iconSubmit: 'fa fa-paper-plane-o',
     iconUpdate: 'fa fa-floppy-o',
     iconPost: 'fa fa-rocket',
@@ -76,8 +76,8 @@ export class SubmitButton extends Component {
     submittingClassName: PropTypes.string,
     buttonStyles: PropTypes.object,
     iconStyles: PropTypes.object,
+    error: PropTypes.string,
     syncErrors: PropTypes.object.isRequired,
-    submitErrors: PropTypes.object,
     syncWarnings: PropTypes.object.isRequired,
     submitting: PropTypes.bool.isRequired,
     submitFailed: PropTypes.bool.isRequired,
@@ -133,22 +133,28 @@ export class SubmitButton extends Component {
     dynamicClassName = okClassName;
     buttonIcon = (<span><i style={iconStyles} className={defaultIcon} /></span>);
     buttonText = defaultLabel;
-    const syncErrorsRay = Object.keys(Object.assign({},
-      this.props.submitErrors, this.props.syncErrors));
+    const syncErrorsRay = Object.keys(this.props.syncErrors);
     return (
       <div className={componentClassName}>
-        {this.props.showErrors && (this.props.submitFailed || this.state.clicked) &&
-          Object.keys(this.props.syncErrors).length > 0 &&
-          <div className={this.props.syncErrorClassName} style={{ marginBottom: '14px' }} role="alert">
-            <i className="fa fa-exclamation" style={{ padding: '0 10px 0 0' }} />
-            {this.props.labelErrorAlert}
-            {syncErrorsRay.map((key, i) =>
-              <span key={key}>
-                {' '}{this.props.translateKeys(key)}
-                {i === syncErrorsRay.length - 1 ? '' : ','}
-              </span>
-            )}
-          </div>
+        {(this.props.submitFailed || this.state.clicked) && this.props.showErrors &&
+          Object.keys(this.props.syncErrors).length > 0 ?
+          (
+            <div className={this.props.syncErrorClassName} style={{ marginBottom: '14px' }} role="alert">
+              <i className="fa fa-exclamation" style={{ padding: '0 10px 0 0' }} />
+              {this.props.labelErrorAlert}
+              {syncErrorsRay.map((key, i) =>
+                <span key={key}>
+                  {' '}{this.props.translateKeys(key)}
+                  {i === syncErrorsRay.length - 1 ? '' : ','}
+                </span>
+              )}
+            </div>
+          ) : this.props.error ? (
+            <div className={this.props.syncErrorClassName} style={{ marginBottom: '14px' }} role="alert">
+              <i className="fa fa-exclamation" style={{ padding: '0 10px 0 0' }} />
+              {this.props.error}
+            </div>
+          ) : null
         }
         <button
           style={Object.assign({}, buttonStyles, isDisabled ? { cursor: 'pointer' } : {})}
@@ -170,7 +176,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     syncErrors: _reduxForm.syncErrors || {},
-    submitErrors: _reduxForm.submitErrors || {},
+    error: _reduxForm.error,
     syncWarnings: _reduxForm.syncWarnings || {},
     submitting: _reduxForm.submitting,
     pristine: _reduxForm.pristine,
