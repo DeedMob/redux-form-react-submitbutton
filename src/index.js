@@ -32,6 +32,7 @@ export class SubmitButton extends Component {
     labelSubmitFailed: 'Submission error',
     labelSubmitSucceeded: 'Success!',
     labelInvalid: 'Invalid',
+    submitErrors: {},
     // Button labels, used based on which prop `type` this button has
     labelSubmit: 'Submit',
     labelUpdate: 'Save Changes',
@@ -132,7 +133,8 @@ export class SubmitButton extends Component {
     dynamicClassName = okClassName;
     buttonIcon = (<span><i style={iconStyles} className={defaultIcon} /></span>);
     buttonText = defaultLabel;
-    const syncErrorsRay = Object.keys(Object.assign({}, this.props.submitErrors, this.props.syncErrors));
+    const syncErrorsRay = Object.keys(Object.assign({},
+      this.props.submitErrors, this.props.syncErrors));
     return (
       <div className={componentClassName}>
         {this.props.showErrors && (this.props.submitFailed || this.state.clicked) &&
