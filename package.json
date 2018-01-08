@@ -1,6 +1,6 @@
 {
   "name": "@deedmob/redux-form-react-submitbutton",
-  "version": "2.1.6",
+  "version": "3.0.0",
   "description": "A submit button for redux form that dynamically changes based on the current form state",
   "private": false,
   "main": "dist/index.js",
@@ -39,12 +39,6 @@
     "url": "https://github.com/DeedMob/redux-form-react-submitbutton/issues"
   },
   "homepage": "https://github.com/DeedMob/redux-form-react-submitbutton#readme",
-  "dependencies": {
-    "prop-types": "^15.5.10",
-    "react": "^15.4.2",
-    "react-redux": "^5.0.5",
-    "redux": "^3.6.0"
-  },
   "devDependencies": {
     "babel-cli": "^6.24.0",
     "babel-core": "^6.24.0",
@@ -52,6 +46,8 @@
     "babel-jest": "^19.0.0",
     "babel-loader": "^6.4.1",
     "babel-plugin-transform-class-properties": "^6.23.0",
+    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-react": "^6.23.0",
     "enzyme": "^2.8.2",
@@ -69,7 +65,11 @@
     "sinon": "^2.1.0"
   },
   "peerDependencies": {
-    "redux-form": "*"
+    "redux-form": "*",
+    "prop-types": "*",
+    "react": "*",
+    "react-redux": "*",
+    "redux": "*"
   },
   "npmName": "redux-form-react-submitbutton",
   "npmFileMap": [

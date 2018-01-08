@@ -12,9 +12,11 @@ https://deedmob.github.io/redux-form-react-submitbutton/example/
 
 `npm install redux-form-react-submitbutton`
 
-## Example usage
+## Example usage (using default Components provided)
 
 ```jsx
+  import { FormSubmissionHandler, FormErrorMessage, FormSubmitButton } from 'redux-form-react-submitbutton';
+
   @reduxForm({
     form: 'account'
   })
@@ -22,119 +24,104 @@ https://deedmob.github.io/redux-form-react-submitbutton/example/
     render(){
       <form>
         <Field name="email" component={TextInput} />
-        <SubmitButton />
+        <FormSubmissionHandler>
+          <FormSubmitButton /> {/* First Child is the submit button */}
+          <FormErrorMessage /> {/* Second Child is the error message handler, optional */}
+        </FormSubmissionHandler>
+        <br/>
       </form>
     }
   }
 ```
 
-## Props
+## Custom Usage (probably what you want, although you can use the provided components as guidelines)
 
-There are no required props
+```jsx
+  import { FormSubmissionHandler } from 'redux-form-react-submitbutton';
 
-```js
+  const CustomSubmitButton = ({ invalid, submitting }) => {
+    if(submitting)
+      return <SpinnerButton/>
+    if(invalid)
+      return <ErrorButton/>
+    return <NormalButton/>
+  }
+  
+  const CustomErrorMessage = ({ syncErrors, error }) => {
+    if(syncErrors){
+      return (
+        <ul>
+          {Object.keys(this.props.syncErrors).map(key =>
+            <li key={key}>{key}</li>
+          )}
+        </ul>
+      )
+    }
+    if(error)
+      return error
+    return null;
+  }
 
-static defaultProps = {
-  // Button class names
-  className: 'btn',
-  disabledClassName: 'btn-outline',
-  successClassName: 'btn-success',
-  errorClassName: 'btn-danger',
-  okClassName: 'btn-primary',
-  submittingClassName: 'btn-default',
-  invalidClassName: 'btn-warning',
-  // added to outer div wrapper of error alert box
-  syncErrorClassName: 'alert alert-danger',
-  // Header text to add to the error alert box
-  labelErrorAlert: 'Please double-check that these fields are correct and try again',
-  buttonStyles: {},
-  // Lets you pass a function that maps from Field `name` to something
-  // to field name to show in list of errors in box
-  translateKeys: key => key,
-  // Should the box describing submission errors be shown on submitFailed?
-  showErrors: true,
-  // How long should a Submission Error or Success be shown before reseting?
-  asyncStatusDuration: 2000,
-  // Button type, for quicker start, but could be removed from this library
-  type: 'Submit',
-  // Button text labels
-  labelSubmitting: '...Submitting',
-  labelSubmitFailed: 'Submission error',
-  labelSubmitSucceeded: 'Success!',
-  labelInvalid: 'Invalid',
-  // Button labels, used based on which prop `type` this button has
-  labelSubmit: 'Submit',
-  labelUpdate: 'Save Changes',
-  labelPost: 'Post',
-  labelCreate: 'Create',
-  // Icons set is by default font-awesome icons, and are added as classNames for an <i> element
-  iconStyles: { marginRight: '5px' },
-  showIcons: true,
-  iconSubmit: 'fa fa-paper-plane-o',
-  iconUpdate: 'fa fa-floppy-o',
-  iconPost: 'fa fa-rocket',
-  iconCreate: 'fa fa-plus',
-  iconError: 'fa fa-times',
-  iconWarning: 'fa fa-warning',
-  iconSubmitting: 'fa fa-spinner fa-pulse fa-fw',
-  iconSuccess: 'fa fa-check'
-}
-static propTypes = {
-  asyncStatusDuration: PropTypes.number,
-  type: PropTypes.oneOf(['Create', 'Post', 'Update', 'Submit']),
-  showIcons: PropTypes.bool,
-  iconSubmit: PropTypes.string,
-  iconUpdate: PropTypes.string,
-  iconPost: PropTypes.string,
-  iconCreate: PropTypes.string,
-  iconError: PropTypes.string,
-  iconWarning: PropTypes.string,
-  iconSubmitting: PropTypes.string,
-  iconSuccess: PropTypes.string,
-  translateKeys: PropTypes.func,
-  labelErrorAlert: PropTypes.string,
-  showErrors: PropTypes.bool,
-  className: PropTypes.string,
-  syncErrorClassName: PropTypes.string,
-  disabledClassName: PropTypes.string,
-  successClassName: PropTypes.string,
-  errorClassName: PropTypes.string,
-  okClassName: PropTypes.string,
-  invalidClassName: PropTypes.string,
-  submittingClassName: PropTypes.string,
-  buttonStyles: PropTypes.object,
-  iconStyles: PropTypes.object,
-  syncErrors: PropTypes.object.isRequired,
-  syncWarnings: PropTypes.object.isRequired,
-  submitting: PropTypes.bool.isRequired,
-  submitFailed: PropTypes.bool.isRequired,
-  submitSucceeded: PropTypes.bool.isRequired,
-  invalid: PropTypes.bool.isRequired,
-  pristine: PropTypes.bool.isRequired,
-  labelSubmitting: PropTypes.string,
-  labelSubmit: PropTypes.string,
-  labelUpdate: PropTypes.string,
-  labelPost: PropTypes.string,
-  labelCreate: PropTypes.string,
-  labelInvalid: PropTypes.string,
-  labelSubmitFailed: PropTypes.string,
-  labelSubmitSucceeded: PropTypes.string
-}
-
+  @reduxForm({
+    form: 'account'
+  })
+  class AccountForm extends React.Component {
+    render(){
+      <form>
+        <Field name="email" component={TextInput} />
+        <FormSubmissionHandler>
+          <CustomSubmitButton /> {/* First Child is the submit button */}
+          <CustomErrorMessage /> {/* Second Child is the error message handler, optional */}
+        </FormSubmissionHandler>
+        <br/>
+      </form>
+    }
+  }
 ```
 
-## Testing
 
-`yarn run test`
+## Components
 
-## TODOS
+`import { FormSubmissionHandler, FormErrorMessage, FormSubmitButton, connectReduxFormState } from 'redux-form-react-submitbutton';`
 
-- [ ] Handle nested object SyncErrors (for example in FieldArray examples)
-- [ ] Handle syncWarnings
-- [ ] Redux-Form context syncErrors and internal Redux-Form syncErrors are not in sync (only sync on Submit), however this means that the alert box shows only a subset of its last submit errors 
-- [ ] Clear clicked State after submitSuccess
-- [ ] Add styling to demo
+### FormSubmissionHandler
 
+Expects one or two `children`, the first being injectedProps the props: `submitting: bool`
+`invalid: bool`. The second is injected the props `syncErrors: {[key]: value}`,
+`error: false | string`. Any custom props are passed onto the container `div`.
+
+### FormSubmitButton
+
+Injected props:
+`submitting: bool`
+`invalid: bool`
+
+Convenient props:
+className: 'btn',
+label: 'Submit',
+
+### FormErrorMessage
+
+Injected props:
+`syncErrors: {[key]: value}` // keys are redux-form Field name unique identifiers, {} on no errors.
+`error: false | string`
+
+### connectReduxFormState
+
+is a HOC that when used as :`connectReduxFormState(WrappedComponent)`
+injects the following props to your component:
+```
+  _reduxForm: _reduxForm
+  syncErrors: _reduxForm.syncErrors || {},
+  error: _reduxForm.error,
+  syncWarnings: _reduxForm.syncWarnings || {},
+  submitting: _reduxForm.submitting,
+  pristine: _reduxForm.pristine,
+  dirty: _reduxForm.dirty,
+  submitSucceeded: _reduxForm.submitSucceeded,
+  submitFailed: _reduxForm.submitFailed,
+  invalid: _reduxForm.invalid
+```
 
 ## Suggested usage
 

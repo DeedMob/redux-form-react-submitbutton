@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.16.0",
+    "eslint-config-react-app": "^2.0.1",
     "html-loader": "^0.4.4",
     "json-loader": "0.5.4",
     "markdown-loader": "^2.0.0",

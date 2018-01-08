@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import SubmitButton from 'redux-form-react-submitbutton';
+import { FormSubmissionHandler, FormErrorMessage, FormSubmitButton } from '../../dist';
 
 const SimpleForm = (props) => {
   const { handleSubmit, pristine, reset, submitting } = props;
@@ -37,9 +37,10 @@ const SimpleForm = (props) => {
         </div>
       </div>
       <div>
-        <SubmitButton
-          translateKeys={key => key.toUpperCase()}
-        />
+        <FormSubmissionHandler>
+          <FormSubmitButton />
+          <FormErrorMessage />
+        </FormSubmissionHandler>
         <br/>
         <button className="btn" type="button" disabled={pristine || submitting} onClick={reset}>
           Clear Values (not included in library)
