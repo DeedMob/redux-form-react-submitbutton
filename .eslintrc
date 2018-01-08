@@ -18,6 +18,7 @@
     "react/jsx-uses-vars": 2,
     "react/react-in-jsx-scope": 2,
     "no-unused-expressions": "off",
+    "eol-last": "off",
     "comma-dangle": "off",
     "no-nested-ternary": "off",
     "react/jsx-filename-extension": "off",

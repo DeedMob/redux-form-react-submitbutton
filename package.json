@@ -8,10 +8,7 @@
     "clean": "rimraf dist",
     "build": "babel src --out-dir dist --ignore __tests__",
     "lint": "eslint src",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
-    "prepublish": "npm run lint && npm run test && npm run clean && npm run build"
+    "prepublish": "npm run lint && npm run clean && npm run build"
   },
   "jest": {
     "automock": false,
