@@ -5,7 +5,8 @@ import connectReduxFormState from './connectReduxFormState';
 class FormSubmissionHandler extends Component {
   static defaultProps = {
     asyncStatusDuration: 2000,
-    invalid: false
+    invalid: false,
+    error: null
   }
   static propTypes = {
     asyncStatusDuration: PropTypes.number,
@@ -13,6 +14,7 @@ class FormSubmissionHandler extends Component {
     syncWarnings: PropTypes.object.isRequired,
     submitting: PropTypes.bool.isRequired,
     submitFailed: PropTypes.bool.isRequired,
+    error: PropTypes.any,
     submitSucceeded: PropTypes.bool.isRequired,
     invalid: PropTypes.bool,
     pristine: PropTypes.bool.isRequired,
@@ -44,7 +46,7 @@ class FormSubmissionHandler extends Component {
     const {
       children, submitting, invalid, syncErrors, asyncStatusDuration,
       submitFailed, submitSucceeded, pristine, dirty, syncWarnings,
-      _reduxForm, dispatch,
+      _reduxForm, dispatch, error,
       ...rest
     } = this.props;
     const childrenArray = React.Children.toArray(children);
@@ -54,7 +56,7 @@ class FormSubmissionHandler extends Component {
         {(submitFailed || this.state.clicked) &&
           (Object.keys(syncErrors).length > 0) && childrenArray.length >= 2 &&
           React.cloneElement(childrenArray[1],
-            { syncErrors })
+            { syncErrors, error })
         }
         {React.cloneElement(childrenArray[0], { submitting, invalid })}
       </div>

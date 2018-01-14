@@ -11,6 +11,7 @@ const mapStateToProps = (state, ownProps) => {
     submitting: _reduxForm.submitting,
     pristine: _reduxForm.pristine,
     dirty: _reduxForm.dirty,
+    error: _reduxForm.error,
     submitSucceeded: _reduxForm.submitSucceeded,
     submitFailed: _reduxForm.submitFailed,
     invalid: _reduxForm.invalid

@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 
 export default class FormErrorMessage extends Component {
   static defaultProps = {
-    syncErrors: {}
+    syncErrors: {},
+    error: null
   }
   static propTypes = {
-    syncErrors: PropTypes.object
+    syncErrors: PropTypes.object,
+    error: PropTypes.any
   }
   render() {
     if (Object.keys(this.props.syncErrors).length > 0) {
@@ -18,6 +20,13 @@ export default class FormErrorMessage extends Component {
               <li key={key}>{key}</li>
             )}
           </ul>
+        </div>
+      );
+    }
+    if (this.props.error) {
+      return (
+        <div className="alert alert-danger" role="alert">
+          {this.props.error}
         </div>
       );
     }
