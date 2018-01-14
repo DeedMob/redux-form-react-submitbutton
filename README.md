@@ -88,7 +88,7 @@ https://deedmob.github.io/redux-form-react-submitbutton/example/
 
 Expects one or two `children`, the first being injectedProps the props: `submitting: bool`
 `invalid: bool`. The second is injected the props `syncErrors: {[key]: value}`,
-`error: false | string`. Any custom props are passed onto the container `div`.
+`error: null | string`. Any custom props are passed onto the container `div`.
 
 ### FormSubmitButton
 
@@ -104,7 +104,7 @@ label: 'Submit',
 
 Injected props:
 `syncErrors: {[key]: value}` // keys are redux-form Field name unique identifiers, {} on no errors.
-`error: false | string`
+`error: null | string`
 
 ### connectReduxFormState
 
@@ -118,6 +118,7 @@ injects the following props to your component:
   submitting: _reduxForm.submitting,
   pristine: _reduxForm.pristine,
   dirty: _reduxForm.dirty,
+  error: _reduxForm.error,
   submitSucceeded: _reduxForm.submitSucceeded,
   submitFailed: _reduxForm.submitFailed,
   invalid: _reduxForm.invalid
