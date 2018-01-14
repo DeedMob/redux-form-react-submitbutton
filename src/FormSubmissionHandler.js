@@ -54,7 +54,7 @@ class FormSubmissionHandler extends Component {
     return (
       <div {...rest}>
         {(submitFailed || this.state.clicked) &&
-          (Object.keys(syncErrors).length > 0) && childrenArray.length >= 2 &&
+          (Object.keys(syncErrors).length > 0 || error) && childrenArray.length >= 2 &&
           React.cloneElement(childrenArray[1],
             { syncErrors, error })
         }
