@@ -44,23 +44,19 @@ class FormSubmissionHandler extends Component {
   handleClick = () => this.setState({ clicked: true });
   render() {
     const {
-      children, submitting, invalid, syncErrors, asyncStatusDuration,
-      submitFailed, submitSucceeded, pristine, dirty, syncWarnings,
-      _reduxForm, dispatch, error,
-      ...rest
+      children, submitting, invalid, syncErrors,
+      submitFailed, error,
     } = this.props;
     const childrenArray = React.Children.toArray(children);
 
-    return (
-      <div {...rest}>
-        {(submitFailed || this.state.clicked) &&
-          (Object.keys(syncErrors).length > 0 || error) && childrenArray.length >= 2 &&
-          React.cloneElement(childrenArray[1],
-            { syncErrors, error })
-        }
-        {React.cloneElement(childrenArray[0], { submitting, invalid })}
-      </div>
-    );
+    const returns = [];
+    if ((submitFailed || this.state.clicked) &&
+      (Object.keys(syncErrors).length > 0 || error) && childrenArray.length >= 2) {
+      returns.push(React.cloneElement(childrenArray[1],
+        { syncErrors, error }));
+    }
+    returns.push(React.cloneElement(childrenArray[0], { submitting, invalid }));
+    return returns;
   }
 }
 
